@@ -1,0 +1,4 @@
+backend:
+  build:
+    image: node:18
+    dockerfile: backend/Dockerfile
