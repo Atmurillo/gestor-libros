@@ -29,4 +29,4 @@ jobs:
         run: sleep 5
 
       - name: Ejecutar prueba de backend
-        run: docker exec gestor-libros-backend-1 npm test
+        run: docker-compose exec -T backend npm test
