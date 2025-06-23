@@ -1,16 +1,9 @@
-const fetch = require('node-fetch');
+const request = require('supertest');
+const app = require('../index'); // Asegúrate de que la ruta sea correcta
 
-fetch('http://localhost:4000/libros')
-  .then(res => {
-    if (res.ok) {
-      console.log("✅ Backend respondió correctamente.");
-      process.exit(0);
-    } else {
-      console.error(`❌ Backend respondió con error HTTP: ${res.status}`);
-      process.exit(1);
-    }
-  })
-  .catch(() => {
-    console.error("❌ El backend no respondió.");
-    process.exit(1);
+describe('GET /libros', () => {
+  it('debería responder con status 200', async () => {
+    const res = await request(app).get('/libros');
+    expect(res.statusCode).toBe(200);
   });
+});

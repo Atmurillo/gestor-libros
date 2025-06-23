@@ -8,4 +8,10 @@ app.use(express.json());
 app.use('/libros', libroRoutes);
 
 const PORT = 4000;
-app.listen(PORT, () => console.log(`Backend listo en http://localhost:${PORT}`));
+
+// Solo arrancar el servidor si este archivo se ejecuta directamente
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Backend listo en http://localhost:${PORT}`));
+}
+
+module.exports = app;
