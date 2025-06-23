@@ -1,0 +1,27 @@
+name: CI Gestor Libros
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repo
+      uses: actions/checkout@v3
+
+    - name: Construir contenedores Docker
+      run: docker-compose build
+
+    - name: Levantar contenedores
+      run: docker-compose up -d
+
+    - name: Esperar que backend esté activo
+      run: sleep 5
+
+    - name: Ejecutar prueba de backend
+      run: docker exec gestor-libros-backend-1 node tests/backend.test.js
