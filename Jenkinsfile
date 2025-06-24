@@ -1,17 +1,16 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Build') {
             steps {
-                sh 'docker-compose build'
+                sh 'docker-compose -f docker-compose.ci.yml build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker-compose up -d'
+                sh 'docker-compose -f docker-compose.ci.yml up -d'
                 sh 'sleep 5'
                 sh 'docker exec gestor_backend npm test'  
             }
@@ -26,11 +25,11 @@ pipeline {
                 '''
             }
         }
+    }
 
-        stage('Apagar contenedores') {
-            steps {
-                sh 'docker-compose down'
-            }
+    post {
+        always {
+            sh 'docker-compose -f docker-compose.ci.yml down'
         }
     }
 }

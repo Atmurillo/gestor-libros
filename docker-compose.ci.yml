@@ -1,0 +1,19 @@
+version: '3'
+services:
+  backend:
+    container_name: gestor_backend
+    build: ./backend
+    ports:
+      - "4000:4000"
+    networks:
+      - red-libros
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    networks:
+      - red-libros
+
+networks:
+  red-libros:
