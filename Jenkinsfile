@@ -33,7 +33,7 @@ pipeline {
         stage('Apagar contenedores') {
             steps {
                 sh 'sleep 5'
-                sh 'docker-compose -f docker-compose.ci.yml down'
+                sh 'docker-compose -f docker-compose.ci.yml down || true'
             }
         }
     }
