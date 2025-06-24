@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        CODECOV_TOKEN = '5a4c9c04-f864-4588-9b6c-761c816146f4'
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -21,15 +25,16 @@ pipeline {
                 sh '''
                   curl -Os https://uploader.codecov.io/latest/linux/codecov
                   chmod +x codecov
-                  ./codecov
+                  ./codecov -t $CODECOV_TOKEN
                 '''
             }
         }
-    }
 
-    post {
-        always {
-            sh 'docker-compose -f docker-compose.ci.yml down'
+        stage('Apagar contenedores') {
+            steps {
+                sh 'sleep 2'
+                sh 'docker-compose -f docker-compose.ci.yml down'
+            }
         }
     }
 }
