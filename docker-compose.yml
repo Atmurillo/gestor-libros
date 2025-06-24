@@ -14,5 +14,20 @@ services:
     networks:
       - red-libros
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: gestor-libros-jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    user: root
+    networks:
+      - red-libros
+
 networks:
   red-libros:
+
+volumes:
+  jenkins_home:
