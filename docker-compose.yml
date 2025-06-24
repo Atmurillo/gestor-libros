@@ -16,7 +16,9 @@ services:
       - red-libros
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: ./jenkins-custom
+      dockerfile: Dockerfile
     container_name: gestor-libros-jenkins
     ports:
       - "8080:8080"
